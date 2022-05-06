@@ -1,0 +1,26 @@
+<div class="row align-center mb-5">
+  <div class="col-md-6">
+    {{#each blogs as | blog|}}
+    <a href="/post">
+    <div class="card">
+      <div class="card-header col">
+        <div class=" ">
+          {{blog.title}}
+        </div>
+        <div>
+          {{blog.user.username}}
+        </div>
+      </div>
+      <div class="card-body">
+        {{blog.post}}
+      </div>
+</a>
+
+    </div>
+    {{/each}}
+
+  </div>
+  <div class="col-md-6">
+
+  </div>
+</div>
