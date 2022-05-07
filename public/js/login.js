@@ -1,9 +1,10 @@
 const loginFormHandler = async (event) => {
   event.preventDefault();
-
+  // console.log("=======login")
 
   const email = document.querySelector('#email-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
+  // console.log(email)
   if (email && password) {
     
     const response = await fetch('/api/users/login', {
@@ -14,7 +15,10 @@ const loginFormHandler = async (event) => {
 
     if (response.ok) {
       document.location.replace('/home');
+
     } else {
+
+      
       alert('Failed to log in');
     }
   }

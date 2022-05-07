@@ -1,59 +1,73 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Blog } = require('../../models');
+const bcrypt = require("bcrypt");
 
 router.post('/login', async (req, res) => {
+
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(foundUser => {
+    if (!foundUser) {
+      return res.status(400).json({ msg: "wrong login credentials" })
+
+    }
+    if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+
+      req.session.user = {
+        id: foundUser.id,
+        username: foundUser.username,
+        logged_in: true
+      }
+
+      // console.log(req.session)
+      return res.json(foundUser)
+    } else {
+      return res.status(400).json({ msg: "wrong login credentials" })
+    }
+  }).catch(err => {
+    // console.log(err);
+    res.status(500).json({ msg: "an error occured", err });
+  });
+});
+
+
+
+router.post('/dashboard/new', async (req, res) => {
   try {
-   
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    console.log("&&&&&&&&")
+console.log(req.body.title)
+    // if (!userData) {
+    Blog.create({
+      title: req.body.title,
+      post: req.body.content,
+      user_id: req.session.user.id
+    }).then(newBlog => {
+      res.json(req.session);
+      // res.render('dashboard');
 
-    if (!userData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-    
-    const validPassword = await userData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-   
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.email=userData.email;
-      req.session.logged_in = true;
-      
-      res.json({ user: userData, message: 'You are now logged in!' });
-      // res.render('/home');
-    });
-
+    })
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-
 router.post('/signup', async (req, res) => {
   try {
-  
+
     const userData = await User.findOne({ where: { email: req.body.email } });
 
     if (!userData) {
       User.create({
-        email : req.body.email,
+        email: req.body.email,
         password: req.body.password
       }).then(newUser => {
         // console.log(newUser)
         req.session.user = {
-          id:newUser.id,
-          email:newUser.email
-          
+          id: newUser.id,
+          email: newUser.email
+
         }
 
         // console.log("=========")
@@ -62,25 +76,16 @@ router.post('/signup', async (req, res) => {
         // res.render('home');
 
       })
-     
+
     }
 
-    
+
 
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-      res.render('login');
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+
 
 module.exports = router;

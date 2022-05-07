@@ -10,20 +10,26 @@
 
 <body>
   <header class="display-flex justify-space-between align-center p-2">
-    <h1>
-      <ul >
-        <li><a href="/login">login</a></li>
-        <li><a href="/SignUp">Sign Up</a></li>
-      </ul>
-      
-     
-    </h1>
+    <h4> Welcome {{user.username}}</h4>
     
-    {{!-- {{#if logged_in}} --}}
+    
+      
+        <a href="/Home">Home</a>
+        {{!-- <a href="/login">login!!</a>
+        <a href="/SignUp">Sign Up</a> --}}
+         {{#if user.logged_in}}
+        <a href="/dashboard">Dashboard</a>
+        {{else}}
+        <a href="/login">Dashboard</a>
+        {{/if}}
+   
+    
+   
+    {{#if user.logged_in}}
     <nav>
       <button class="btn" id="logout">logout</button>
     </nav>
-    {{!-- {{/if}} --}}
+    {{/if}}
   </header>
   <main class="container container-fluid mt-5">
     {{{ body }}}
@@ -32,9 +38,10 @@
       
   </footer>
 
-  {{#if logged_in}}
+  {{#if user.logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}
 </body>
 
 </html>
+

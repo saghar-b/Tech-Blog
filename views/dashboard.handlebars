@@ -1,0 +1,40 @@
+<div class="row align-center mb-5">
+  <div class="col-md-6">
+
+    {{#each hbsUserBlogs as | blog|}}
+    <a href="/view">
+      <div class="card">
+        <div class="card-header ">
+          <div class=" row justify-content-end">
+            {{blog.title}}
+            
+            <div class=" ">
+              <a href="/delete">delete</a>
+            </div>
+            <div>
+              <a href="/update">update</a>
+            </div>
+
+          </div>
+          <div>
+            {{blog.user.username}}
+          </div>
+        </div>
+        <div class="card-body">
+          {{blog.post}}
+        </div>
+    </a>
+
+  </div>
+  {{/each}}
+
+</div>
+
+<a href="/dashboard/new"> New Post</a>
+{{!-- <button id="new-post">New Post</button> --}}
+<div class="col-md-6">
+</div>
+</div>
+
+{{!--
+<script src="/js/dashboard.js"></script> --}}
