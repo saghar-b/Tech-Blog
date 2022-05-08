@@ -67,6 +67,29 @@ router.get('/post/:id', async (req, res) => {
     res.json(err)
   }
 });
+router.get('/dashboard/edit/:id', async (req, res) => {
+  try {
+    const dbBlog = await Blog.findByPk(req.params.id);
+    const blog = dbBlog.get({ plain: true });
+    const dbComment = await Comment.findAll({ where: { blog_id: req.params.id } });
+    console.log(dbComment)
+    const coments =  dbComment.map((comment) => comment.get({ plain: true }));
+    console.log("-----------")
+    console.log(coments)
+    const user = req.session.user
+    // if (user) {
+
+      res.render('editPost', { blog,coments,user });
+      // res.render('editPost', { blog,user });
+    // } else {
+      // res.render('post', { blog,coments });
+    // }
+    
+
+  } catch (err) {
+    res.json(err)
+  }
+});
 
 router.get('/home', async (req, res) => {
 

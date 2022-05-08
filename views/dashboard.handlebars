@@ -1,40 +1,62 @@
-<div class="row align-center mb-5">
-  <div class="col-md-6">
 
-    {{#each hbsUserBlogs as | blog|}}
-    <a href="/view">
+{{#each hbsUserBlogs as | blog|}}
+<div class=" align-center mb-5 d-flex">
+  <div class="col-6">
+    <a href="/dashboard/edit/{{blog.id}}">
       <div class="card">
         <div class="card-header ">
-          <div class=" row justify-content-end">
-            {{blog.title}}
-            
-            <div class=" ">
-              <a href="/delete">delete</a>
-            </div>
-            <div>
-              <a href="/update">update</a>
-            </div>
-
-          </div>
-          <div>
-            {{blog.user.username}}
-          </div>
+          {{blog.title}}
         </div>
         <div class="card-body">
           {{blog.post}}
         </div>
+      </div>
     </a>
 
   </div>
-  {{/each}}
+  <div class="col-6">
 
+
+    <a href="javascript:deletePost({{blog.id}})">delete</a>
+    {{!-- <a href="/dashboard/delete/{{blog.id}}">delete</a> --}}
+
+    <a href="/dashboard/edit/{{blog.id}}">update</a>
+
+  </div>
 </div>
+{{/each}}
 
+
+
+<h3>
 <a href="/dashboard/new"> New Post</a>
+</h3>
 {{!-- <button id="new-post">New Post</button> --}}
 <div class="col-md-6">
 </div>
 </div>
 
-{{!--
-<script src="/js/dashboard.js"></script> --}}
+<script>
+  const deletePost = async (id) => {
+    console.log("-------------%%%%%%%%%%-----------")
+    const response = await fetch(`/api/users/dashboard/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+      });
+
+    if (response.ok) {
+       console.log("deletee--=====-----===--")
+      document.location.replace('/dashboard');
+
+    } else {
+
+      
+      alert('Failed to delete');
+    }
+  
+};
+</script>
+{{!-- <script src="/js/delete.js"></script>
+<script src="/js/update.js"></scrip> --}}

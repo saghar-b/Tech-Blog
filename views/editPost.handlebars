@@ -1,0 +1,38 @@
+<div class="row align-center mb-5">
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header col">
+        <input id="title-post" type="text" value="{{blog.title}}">
+      </div>
+
+      <div class="card-body">
+        <textarea id="content-post" type="text" cols="40" rows="3" value="{{blog.post}}"></textarea>
+        {{!-- <textarea id="commentBody" cols="50" rows="3"></textarea> --}}
+      </div>
+      <div>
+        <input id="id-post" type="hidden" value="{{blog.id}}">
+      </div>
+
+
+    </div>
+    <div class="b-3">
+      <h4>Comments:</h4>
+      {{#each coments as | comment|}}
+      <ul>
+        <li>
+          {{comment.comment}}
+        </li>
+      </ul>
+
+      {{/each}}
+    </div>
+
+    <button id="updatePost"> Update</button>
+
+    <div class="col-md-6">
+
+    </div>
+  </div>
+
+  <script src="/js/updatePost.js"></script>

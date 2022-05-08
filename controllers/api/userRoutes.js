@@ -69,7 +69,56 @@ console.log(req.session.user.id)
     res.status(400).json(err);
   }
 });
+router.delete('/dashboard/delete/:id', async (req, res) => {
+  try {
+    console.log("req.params.id ----------")
+    console.log(req.params.id)
+    const dbBlog = await Blog.destroy({
+      where: {
+        id: req.params.id
+      }
+      });
+    console.log(res.session)
+      const userBlogs = await Blog.findAll({
+        where: {
+          user_id: req.session.user.id
+        }
+      }).catch((err) => {
+        res.json(err)
+      })
+    res.send();
 
+  } catch (err) {
+    res.json(err)
+  }
+});
+router.put('/dashboard/update/:id', async (req, res) => {
+  try {
+    console.log("req.params.id ----------")
+    console.log(req.params.id)
+    const dbBlog = await Blog.update(
+      {
+        title: req.body.title,
+        post: req.body.content
+      },{
+      where: {
+        id: req.params.id
+      }
+      });
+    // console.log(res.session)
+      // const userBlogs = await Blog.findAll({
+      //   where: {
+      //     user_id: req.session.user.id
+      //   }
+      // }).catch((err) => {
+      //   res.json(err)
+      // })
+    res.send();
+
+  } catch (err) {
+    res.json(err)
+  }
+});
 router.post('/signup', async (req, res) => {
   try {
 
