@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Blog } = require('../models');
+const { User, Blog, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 
@@ -13,7 +13,7 @@ const withAuth = require('../utils/auth');
 // })''
 
 router.get('/logout', (req, res) => {
-  
+
   if (req.session.user.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
@@ -24,48 +24,67 @@ router.get('/logout', (req, res) => {
   }
 });
 
-router.get('/dashboard', async(req,res)=>{
-  
-  const userBlogs =await Blog.findAll({
-    where:{
+router.get('/dashboard', async (req, res) => {
+
+  const userBlogs = await Blog.findAll({
+    where: {
       user_id: req.session.user.id
     }
-  }).catch((err)=>{
+  }).catch((err) => {
     res.json(err)
   })
-  const hbsUserBlogs = userBlogs.map((blog) => blog.get({ plain: true })); 
-    const user = req.session.user
-      res.render('dashboard', { hbsUserBlogs,user });
+  const hbsUserBlogs = userBlogs.map((blog) => blog.get({ plain: true }));
+  const user = req.session.user
+  res.render('dashboard', { hbsUserBlogs, user });
 })
 
 
-router.get('/dashboard/new', async(req,res)=>{
-    const user = req.session.user
-      res.render('dashboardNew', { user });
+router.get('/dashboard/new', async (req, res) => {
+  const user = req.session.user
+  res.render('dashboardNew', { user });
 })
+router.get('/post/:id', async (req, res) => {
+  try {
+    const dbBlog = await Blog.findByPk(req.params.id,{
+      include: [User]
+    });
+    const blog = dbBlog.get({ plain: true });
+    const dbComment = await Comment.findAll({ where: { blog_id: req.params.id } });
+    console.log(dbComment)
+    const coments =  dbComment.map((comment) => comment.get({ plain: true }));
+    console.log("-----------")
+    console.log(coments)
+    const user = req.session.user
+    if (user) {
 
+      res.render('post', { blog,coments,user });
+    } else {
+      res.render('post', { blog,coments });
+    }
+    
+
+  } catch (err) {
+    res.json(err)
+  }
+});
 
 router.get('/home', async (req, res) => {
-  // res.render('home')
 
+  const allBlogs = await Blog.findAll({
+    include: [User]
+  }).catch((err) => {
+    res.json(err)
+  })
 
-  // if (req.session.user.logged_in) {
-    // console.log("im here")
-    const allBlogs = await Blog.findAll({
-      include: [User]
-    }).catch((err) => {
-      res.json(err)
-    })
+  const blogs = allBlogs.map((blog) => blog.get({ plain: true }));
+  // console.log(blogs)
+  const user = req.session.user
+  if (user) {
 
-    const blogs = allBlogs.map((blog) => blog.get({ plain: true }));
-    // console.log(blogs)
-    const user = req.session.user
-    if(user){
-
-      res.render('home', { blogs,user });
-    }else{
-      res.render('home', { blogs});
-    }
+    res.render('home', { blogs, user });
+  } else {
+    res.render('home', { blogs });
+  }
   // }
 });
 

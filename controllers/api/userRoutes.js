@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Blog } = require('../../models');
+const { User, Blog, Comment } = require('../../models');
 const bcrypt = require("bcrypt");
 
 router.post('/login', async (req, res) => {
@@ -36,8 +36,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/dashboard/new', async (req, res) => {
   try {
-    console.log("&&&&&&&&")
-console.log(req.body.title)
+
+
     // if (!userData) {
     Blog.create({
       title: req.body.title,
@@ -47,6 +47,23 @@ console.log(req.body.title)
       res.json(req.session);
       // res.render('dashboard');
 
+    })
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+router.post('/post/comment', async (req, res) => {
+  try {
+console.log(req.body)
+console.log(req.body.postID)
+console.log(req.session.user.id)
+
+    Comment.create({
+      comment: req.body.content,
+      blog_id: req.body.postID,
+      user_id : req.session.user.id
+    }).then(newComment=> {
+      res.json(req.session);
     })
   } catch (err) {
     res.status(400).json(err);

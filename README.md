@@ -22,6 +22,7 @@ SO THAT I can publish articles, blog posts, and my thoughts and opinions
 5. npm install connect-session-sequelize
 6. path
 7. mysql2
+8. dotenv
 
 ## Acceptance Criteria
 
