@@ -20,6 +20,7 @@
       <a href="/dashboard">Dashboard</a>
       {{else}}
       <a href="/login">Dashboard</a>
+      <a href="/login">Login</a>
       {{/if}}
       {{#if user.logged_in}}
       <nav>
@@ -27,12 +28,6 @@
       </nav>
       {{/if}}
     </nav>
-
-
-
-
-
-
   </header>
   <main class="container container-fluid mt-5">
     {{{ body }}}
