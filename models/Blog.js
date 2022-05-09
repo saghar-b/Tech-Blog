@@ -16,15 +16,13 @@ Blog.init(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      // unique:true,
-      // validate:{
-      //   isEmail:true
-      // }
+      unique:true,
     },
     post: {
       type: DataTypes.TEXT,
       allowNull: false,
-    }
+    },
+    
   },
   {
     

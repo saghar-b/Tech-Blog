@@ -2,7 +2,6 @@
   <div class="col-md-6">
 
 
-
     <div class="card">
       <div class="card-header col">
         <div class=" ">
@@ -14,7 +13,7 @@
         </div>
         <div>
          Created at:
-          {{blog.createdAt}}
+           {{time}}
         </div>
       </div>
       <div class="card-body">
@@ -35,12 +34,12 @@
 
       {{/each}}
     </div>
-
+{{#if user.logged_in}}
     <h4>New Comments</h4>
     <textarea id="commentBody" cols="50" rows="3"></textarea>
     <input type="text" style="display:none" id="postId" value={{blog.id}}>
     <button id="commentBtn"> Add Comment</button>
-
+{{/if}}
     <div class="col-md-6">
 
     </div>

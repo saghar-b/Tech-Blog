@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Blog, Comment } = require('../../models');
 const bcrypt = require("bcrypt");
+// const today = moment(); 
 
 router.post('/login', async (req, res) => {
 
@@ -21,31 +22,42 @@ router.post('/login', async (req, res) => {
         logged_in: true
       }
 
-      // console.log(req.session)
+   
       return res.json(foundUser)
     } else {
       return res.status(400).json({ msg: "wrong login credentials" })
     }
   }).catch(err => {
-    // console.log(err);
+   
     res.status(500).json({ msg: "an error occured", err });
   });
 });
 
-
+router.post("/signup", (req, res) => {
+  User.create(req.body)
+    .then(newUser => {
+      req.session.user = {
+        id:newUser.id,
+        username:newUser.username,
+        logged_in: true
+      }
+     
+      res.json(newUser);
+    })
+    .catch(err => {
+      
+      res.status(500).json({ msg: "This username  exist.Please use another username ", err });
+    });
+});
 
 router.post('/dashboard/new', async (req, res) => {
   try {
-
-
-    // if (!userData) {
     Blog.create({
       title: req.body.title,
       post: req.body.content,
       user_id: req.session.user.id
     }).then(newBlog => {
       res.json(req.session);
-      // res.render('dashboard');
 
     })
   } catch (err) {
@@ -54,9 +66,7 @@ router.post('/dashboard/new', async (req, res) => {
 });
 router.post('/post/comment', async (req, res) => {
   try {
-console.log(req.body)
-console.log(req.body.postID)
-console.log(req.session.user.id)
+
 
     Comment.create({
       comment: req.body.content,
@@ -71,14 +81,13 @@ console.log(req.session.user.id)
 });
 router.delete('/dashboard/delete/:id', async (req, res) => {
   try {
-    console.log("req.params.id ----------")
-    console.log(req.params.id)
+  
     const dbBlog = await Blog.destroy({
       where: {
         id: req.params.id
       }
       });
-    console.log(res.session)
+   
       const userBlogs = await Blog.findAll({
         where: {
           user_id: req.session.user.id
@@ -94,8 +103,7 @@ router.delete('/dashboard/delete/:id', async (req, res) => {
 });
 router.put('/dashboard/update/:id', async (req, res) => {
   try {
-    console.log("req.params.id ----------")
-    console.log(req.params.id)
+    
     const dbBlog = await Blog.update(
       {
         title: req.body.title,
@@ -105,50 +113,11 @@ router.put('/dashboard/update/:id', async (req, res) => {
         id: req.params.id
       }
       });
-    // console.log(res.session)
-      // const userBlogs = await Blog.findAll({
-      //   where: {
-      //     user_id: req.session.user.id
-      //   }
-      // }).catch((err) => {
-      //   res.json(err)
-      // })
+    
     res.send();
 
   } catch (err) {
     res.json(err)
-  }
-});
-router.post('/signup', async (req, res) => {
-  try {
-
-    const userData = await User.findOne({ where: { email: req.body.email } });
-
-    if (!userData) {
-      User.create({
-        email: req.body.email,
-        password: req.body.password
-      }).then(newUser => {
-        // console.log(newUser)
-        req.session.user = {
-          id: newUser.id,
-          email: newUser.email
-
-        }
-
-        // console.log("=========")
-        // console.log(req.session)
-        // res.json(req.session);
-        // res.render('home');
-
-      })
-
-    }
-
-
-
-  } catch (err) {
-    res.status(400).json(err);
   }
 });
 

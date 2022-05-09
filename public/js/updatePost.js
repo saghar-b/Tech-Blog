@@ -2,13 +2,13 @@
 
 const editPostFormHandler = async (event) => {
   event.preventDefault();
-console.log("mmmmmmmmmmmmm---------------")
+
 
   const title = document.querySelector('#title-post').value;
   const content = document.querySelector('#content-post').value;
   const postId = document.querySelector('#id-post').value;
-console.log(title +"   "+ content +" "+postId)
-  // if (title && content) {
+
+  
     
     const response = await fetch(`/api/users/dashboard/update/${postId}`, {
       method: 'PUT',
@@ -28,7 +28,7 @@ console.log(title +"   "+ content +" "+postId)
     } else {
 
       
-      alert('Failed to log in');
+      alert('Failed to update');
     }
   // }
 };

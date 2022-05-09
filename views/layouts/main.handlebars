@@ -11,31 +11,34 @@
 <body>
   <header class="display-flex justify-space-between align-center p-2">
     <h4> Welcome {{user.username}}</h4>
-    
-    
-      
-        <a href="/Home">Home</a>
-        {{!-- <a href="/login">login!!</a>
-        <a href="/SignUp">Sign Up</a> --}}
-         {{#if user.logged_in}}
-        <a href="/dashboard">Dashboard</a>
-        {{else}}
-        <a href="/login">Dashboard</a>
-        {{/if}}
-   
-    
-   
-    {{#if user.logged_in}}
+
     <nav>
-      <button class="btn" id="logout">logout</button>
+      <a href="/Home">Home</a>
+      {{!-- <a href="/login">login!!</a>
+      <a href="/SignUp">Sign Up</a> --}}
+      {{#if user.logged_in}}
+      <a href="/dashboard">Dashboard</a>
+      {{else}}
+      <a href="/login">Dashboard</a>
+      {{/if}}
+      {{#if user.logged_in}}
+      <nav>
+        <button class="btn" id="logout">logout</button>
+      </nav>
+      {{/if}}
     </nav>
-    {{/if}}
+
+
+
+
+
+
   </header>
   <main class="container container-fluid mt-5">
     {{{ body }}}
   </main>
   <footer>
-      
+
   </footer>
 
   {{#if user.logged_in}}
@@ -44,4 +47,3 @@
 </body>
 
 </html>
-

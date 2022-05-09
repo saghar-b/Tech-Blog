@@ -1,11 +1,6 @@
 
 
-const deletePost = async (id) => {
-  // event.preventDefault();
-
-
-
-    
+const deletePost = async (id) => {    
     const response = await fetch(`/api/users/dashboard/delete/${id}`, {
       method: 'DELETE',
       headers: {
@@ -14,15 +9,13 @@ const deletePost = async (id) => {
       });
 
     if (response.ok) {
-      // console.log(content +""+postID)
       document.location.replace('/dashboard');
 
     } else {
 
       
-      alert('Failed to log in');
+      alert('Failed to delete');
     }
   
 };
 module.exports = deletePost;
-// document.querySelector('#commentBtn').addEventListener('click', newCommentFormHandler);

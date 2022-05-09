@@ -1079,6 +1079,43 @@ a:hover {
 .btn.btn-link:hover {
   background-color: #31a9e1;
 }
+header {
+  background-color: rgb(126, 180, 126);
+}
+header > nav {
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-around;
+  text-align: left;
+  
+}
+a {
+  margin-top: 0%;
+  padding-top: 0%;
+  
+  padding-right: 10px;
+  margin-right: 10px;
+  
+  /* justify-content: space-between; */
+  /* display: flex; */
+  
+}
+#newPost{
+  margin-top: 10px;
+  border: 3px solid rgb(126, 180, 126);
+  background-color:rgb(126, 180, 126); 
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  padding: 5px;
+}
+#smalbtn{
+  border: 3px solid rgb(126, 180, 126); 
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  padding: 5px;
+}
 
 .card {
   border: 1px solid #1a1a1a;
@@ -1089,6 +1126,7 @@ a:hover {
   padding: 0.375rem;
   background-color: #2d3e50;
   color: #d9e9e8;
+  /* display: flex; */
 }
 
 .card .card-body {

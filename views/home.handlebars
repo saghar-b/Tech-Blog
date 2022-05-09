@@ -1,20 +1,20 @@
 <div class="row align-center mb-5">
   <div class="col-md-6">
-    
+    {{time}}
     {{#each blogs as | blog|}}
     <a href="/post/{{blog.id}}">
     <div class="card">
       <div class="card-header col">
         <div class=" ">
-          {{blog.title}}
+         <h3> {{blog.title}}</h3>
         </div>
         <div>
          Created by:
           {{blog.user.username}}
         </div>
-        <div>
+        <div >
          Created at:
-          {{blog.createdAt}}
+         {{../time}}
         </div>
       </div>
       <div class="card-body">

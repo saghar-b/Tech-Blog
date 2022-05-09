@@ -6,7 +6,7 @@ const newPostFormHandler = async (event) => {
 
   const title = document.querySelector('#title-post').value.trim();
   const content = document.querySelector('#content-post').value.trim();
-console.log(title +"   "+ content)
+
   if (title && content) {
     
     const response = await fetch('/api/users/dashboard/new', {
@@ -21,7 +21,7 @@ console.log(title +"   "+ content)
     } else {
 
       
-      alert('Failed to log in');
+      alert('Failed to add new post');
     }
   }
 };
