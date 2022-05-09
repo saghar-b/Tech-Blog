@@ -8,23 +8,6 @@ AS A developer who writes about tech
 I WANT a CMS-style blog site
 SO THAT I can publish articles, blog posts, and my thoughts and opinions
 ```
-## Installation
-Here are some guidelines to help you get started:
-
-1. Clone the project in your laptop  
-2. make sure you installed Node on your visual studio 
-3.  Run the `npm init -y` comand in your terminal (your can see _package.json_ file in your folder)
-4.  Run `npm install express mysql2 sequelize dotenv ` comand in your terminal to get all the libraries 
-5.  create .env file and inter your information
- 
-
-6.  open terminl 
-7. start the terminal from server.js
-8.  run the `npm run schema` in terminal
-9.  run the `npm run seed` in terminal
-10. 6.  run the `node server.js`in terminal
-11. start insomnia GET `localhost:3001/api/categories` and keep continue for the rest 
-
 ## Demo link
 here you can see a video of the site 
 [demo video](https://drive.google.com/file/d/1LLiFy7rDZqpO2AU6UWKIaS2oV_OPC1yb/view)
