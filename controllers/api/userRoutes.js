@@ -67,7 +67,6 @@ router.post('/dashboard/new', async (req, res) => {
 router.post('/post/comment', async (req, res) => {
   try {
 
-
     Comment.create({
       comment: req.body.content,
       blog_id: req.body.postID,
