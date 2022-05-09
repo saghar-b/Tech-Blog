@@ -27,19 +27,12 @@ Here are some guidelines to help you get started:
 
 ## Demo link
 here you can see a video of the site 
-[demo video]()
+[demo video](https://drive.google.com/file/d/1LLiFy7rDZqpO2AU6UWKIaS2oV_OPC1yb/view)
 
 ## link to the website 
-[Tech Blog]()
+[Tech Blog](https://polar-tundra-93040.herokuapp.com/)
 ## install
-1. express
-2. bcrypt
-3. express-handlebars
-4. express-session
-5. npm install connect-session-sequelize
-6. path
-7. mysql2
-8. dotenv
+* run the seed in heroku `npm run seed`
 
 ## My Work
 
@@ -48,7 +41,7 @@ GIVEN a CMS-style blog site
 * clicking on the homepage option, it taken to the homepage
 * click on any other links in the navigation, it prompted to either sign up or sign in
 * clicking the sign up link, it prompted to create a username, email and password
-*WHEN I *click on the sign-up button, the user credentials are saved and be able to  logged into the site
+* click on the sign-up button, the user credentials are saved and be able to  logged into the site
 * revisit the site at a later time and choose to sign in, it prompted to enter  username and password, then it bring you to the site and be able navigation links for the homepage, the dashboard, and the option to log out
 * click on the homepage option in the navigation, it taken to the homepage and presented with existing blog posts that include the post title and the date created by user who sign in
 * click on an existing blog post, it presented with the post title, contents, post  and date created for that post and have the option to leave a comment
